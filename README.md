@@ -36,7 +36,32 @@ Core is the main part of this program. Core can perform a bunch of actions :
   * use this master to launch new instances
   * destroy master
 
-Requirements for launching a new virtual instances :
+Requirements to launch virtual instances :
 
-  * master id
-  *
+  * master id ( string )
+  * region ( string )
+  * zone ( string )
+  * keypair ( string )
+  * security groups ( dict )
+
+Requirements to destroy virtual instances :
+
+  * virtual instance id ( string )
+
+## Events
+
+Several events can trigger AppController core :
+
+  * url not responding within timeout
+  * cpu usage over treshold
+  * memory usage over treshold
+
+How to get back to the initial values ?
+
+  * url is responding within timeout
+  AND
+  * cpu usage on all hosts are under treshold
+  AND
+  * memory usage on all hosts are under treshold
+
+then decrease the number of virtual instance.
