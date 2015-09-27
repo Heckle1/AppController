@@ -59,9 +59,13 @@ Several events can trigger AppController core :
 How to get back to the initial values ?
 
   * url is responding within timeout
+
   AND
+
   * cpu usage on all hosts are under treshold
+
   AND
+
   * memory usage on all hosts are under treshold
 
 then decrease the number of virtual instance.
