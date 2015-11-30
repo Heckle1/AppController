@@ -13,6 +13,7 @@ AppController is a cloud auto-sclaing framework.
   * libs: all libraries required by core program
   * libs/mon : all monitoring libs required by core to get in touch with monitoring system
   * libs/cloud : all cloud libs required by core to get connected to a cloud API
+  * lb-agent/ : lb-agent.py to be run on load balancing VM.
 
 ## Core
 
