@@ -13,6 +13,11 @@ pip install bottle==0.12.9
 
 
 # lb-agent configuration
+## Default
+lb-agent is waiting messages from controller on TCP port 6666.
+lb-agent is waiting for haproxy configuration to be at /etc/haproxy/haproxy.cfg
+
+##
 You might have to configure lb-agent parameters. Note: If you are running on centos6 or centos7 you should not have to change the configuration.
 Edit lb-agent/lb-agent.py file to configure Bottle and Haproxy.
 
@@ -20,5 +25,5 @@ Edit lb-agent/lb-agent.py file to configure Bottle and Haproxy.
 # Setup the supervisord
 - Install supervisord (via system package manager or via pip).
 - Edit (if needed) then copy etc/supervisord.d/lb-agent.ini in /etc/supervisord.d/lb-agent.ini
-- Run $>supervisorctl and run "reread" command. Check lb-agent service status then you can leave supervisorctl prompt.
-
+- Run "$>supervisorctl reread" then "$>supervisorctl start lb-agent"
+- Done
