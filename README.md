@@ -69,3 +69,7 @@ How to get back to the initial values ?
   * memory usage on all hosts are under treshold
 
 then decrease the number of virtual instance.
+
+## LICENSE
+
+[Read license!](LICENSE)
