@@ -213,6 +213,8 @@ def haproxy_controller_configuration():
     systemd_service_name = None
     try:
         systemv_init_path = config.get('haproxy', 'systemv_init_path')
+        if systemv_init_path == '':
+            raise ConfigParser.NoOptionError()
     except ConfigParser.NoOptionError:
         logging.info('No "systemv_init_path" configured.')
         try:

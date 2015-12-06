@@ -13,13 +13,15 @@ pip install bottle==0.12.9
 
 
 # lb-agent configuration
-## Default
-lb-agent is waiting messages from controller on TCP port 6666.
-lb-agent is waiting for haproxy configuration to be at /etc/haproxy/haproxy.cfg
+Please configure lb-agent with lb-agent.cfg file
 
-##
-You might have to configure lb-agent parameters. Note: If you are running on centos6 or centos7 you should not have to change the configuration.
-Edit lb-agent/lb-agent.py file to configure Bottle and Haproxy.
+* Configuration explanation
+  - default_backend: is the name of your backend which contains scaling nodes in haproxy configuration file
+  - socket_path: file path to haproxy unix socket (must be the same as you haproxy configuration file)
+ You also must choose the way the lb-agent reloads the haproxy daemon. Only one of those options is needed.
+  - systemv_init_path: file path to the haproxy init.d file when you are in a system V system
+  - sytemd_service_name: service name used by systemd for haproxy
+
 
 
 # Setup the supervisord
