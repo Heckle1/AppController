@@ -131,7 +131,7 @@ class Haproxy(object):
         return False
 
 
-    def reload_haproxy(self, configuration):
+    def reload(self, configuration):
         """
         Bottle API Method waiting for a request to replace haproxy configuration file
         then reload Haproxy service

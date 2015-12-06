@@ -33,7 +33,7 @@ LOGGER = logging.getLogger(__name__)
 load_balancer = None
 
 
-def controller_configuration():
+def load_haproxy_configuration():
     """
     Load haproxy configuration file CONFIGURATION_PATH and returns configuration
     :raises: HaError when neither haproxy systemV file of systemd name is configured
@@ -61,14 +61,14 @@ def controller_configuration():
         logging.info('systemv_init_path {0} will be used'.format(systemv_init_path))
     return config, systemv_init_path, systemd_service_name
 
-@route('/reloadHaproxy', method='POST')
-def reload_haproxy():
+@route('/reload', method='POST')
+def reload():
     """
-    API call to reload haproxy configuration
+    API call to reload Load balancer configuration
     """
     global load_balancer
 
-    if load_balancer.reload_haproxy(request.body) is True:
+    if load_balancer.reload(request.body) is True:
         return {"success": True, "message": "Load Balancer up to date"}
     return {"success": False, "error": "Can not write haproxy configuration"}
 
@@ -91,9 +91,10 @@ if __name__ == '__main__':
     """
     logging.info('Load Balancer controller says HELLO !')
 
-    config, systemv_init_path, systemd_service_name = controller_configuration()
+    config, systemv_init_path, systemd_service_name = load_haproxy_configuration()
 
     # ------- Load Balancer controller -------
+    # Haproxy is used here
     load_balancer = Haproxy(config.get('haproxy', 'config_file_path'),
                             config.get('haproxy', 'default_backend'),
                             config.get('haproxy', 'socket_path'),
