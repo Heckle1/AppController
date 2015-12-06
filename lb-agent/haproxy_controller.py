@@ -1,5 +1,8 @@
 """
-
+Haproxy controller class
+It can:
+    - connects to the haproxy unix socket to get statistics
+    - write haproxy configuration given, and reload process
 """
 from socket import SOCK_STREAM, AF_UNIX, socket
 import shutil
@@ -116,12 +119,12 @@ class Haproxy(object):
     	# Reload HAPROXY process
     	logging.info('Reloading haproxy...')
         if self.systemv_init_path:
-            subprocess.check_call([self.configuration_path, 'reload'])
+            subprocess.check_call([self.systemv_init_path, 'reload'])
             logging.info('...Haproxy reloaded with success!')
             return True
 
         if self.systemd_service_name:
-            subprocess.check_call(['service', 'haproxy', 'reload'])
+            subprocess.check_call(['systemctl', 'reload', self.systemd_service_name])
             logging.info('...Haproxy reloaded with success!')
             return True
 

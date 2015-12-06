@@ -1,6 +1,7 @@
 #-*- coding:utf-8 -*-
 """
-Haproxy controller.
+Load Balancer agent.
+This agent receive HTTP messages and
 This service waits for a HTTP request request on:
         url: http://this-machine-address/reloadHaproxy
         in: POST Method
@@ -32,7 +33,7 @@ LOGGER = logging.getLogger(__name__)
 load_balancer = None
 
 
-def haproxy_controller_configuration():
+def controller_configuration():
     """
     Load haproxy configuration file CONFIGURATION_PATH and returns configuration
     :raises: HaError when neither haproxy systemV file of systemd name is configured
@@ -68,7 +69,7 @@ def reload_haproxy():
     global load_balancer
 
     if load_balancer.reload_haproxy(request.body) is True:
-        return {"success": True, "message": "Haproxy up to date"}
+        return {"success": True, "message": "Load Balancer up to date"}
     return {"success": False, "error": "Can not write haproxy configuration"}
 
 @route('/getBackends', method='POST')
@@ -88,11 +89,11 @@ if __name__ == '__main__':
     """
     Listen with bottle
     """
-    logging.info('Haproxy controller says HELLO !')
+    logging.info('Load Balancer controller says HELLO !')
 
-    config, systemv_init_path, systemd_service_name = haproxy_controller_configuration()
+    config, systemv_init_path, systemd_service_name = controller_configuration()
 
-    # ------- Haproxy controller -------
+    # ------- Load Balancer controller -------
     load_balancer = Haproxy(config.get('haproxy', 'config_file_path'),
                             config.get('haproxy', 'default_backend'),
                             config.get('haproxy', 'socket_path'),
@@ -106,4 +107,4 @@ if __name__ == '__main__':
     run(host=config.get('lb-agent', 'host'),
         port=config.getint('lb-agent', 'port'))
 
-    logging.info('Haproxy controller says GOODBYE !')
+    logging.info('Load Balancer controller says GOODBYE !')
